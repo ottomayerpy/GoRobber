@@ -18,4 +18,4 @@ def case(request, card_id):
             'user_level': UserProfile.objects.get(id=request.user.id).level
         })
 
-    return render(request, 'case/index.html', context)
+    return render(request, 'case/case.html', context)
