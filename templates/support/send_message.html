@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Техническая поддержка{% endblock %}
+{% block head %}
+<script type="text/javascript" src="{% static 'js/support.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div class="terms_content">
+    <div class="container help_block">
+        <h1>Отправить сообщение в техническую поддержку</h1>
+        <div class="field-block">
+            <label for="name">Ваше имя:</label>
+            <input id="name" class="field" name="name" required type="text" placeholder="Иванов Иван Иванович">
+        </div>
+        <div class="field-block">
+            <label for="email">Ваш E-mail:</label>
+            <input id="email" class="field" name="email" required type="email" placeholder="ivanov@email.com">
+        </div>
+        <div class="field-block">
+            <label for="message">Текст сообщения:</label>
+            <textarea id="message" class="field" required name="message" rows="4"></textarea>
+        </div>
+        <div class="field-block">
+            <input id="check" name="check" checked type="checkbox">
+            <span class="check-text">Я добровольно отправляю свои данные</span>
+        </div>
+        <div class="center_button_send_message">
+            <button class="button ButtonReg js-send_message" type="submit">Отправить</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

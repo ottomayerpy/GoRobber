@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}GoRobber{% endblock %}
+{% block content %}
+<div class="mt-3">
+    <h2 align="center" class="big-title">Кейсы</h2>
+    <div class="case-list">
+        {% for case in cases %}
+        <div class="case">
+            <a href="{% url 'case' case.id %}">
+                <div class="case-image">
+                    <img src="{{ case.image.url }}"/>
+                </div>
+                <div class="case-title case-title-white">
+                    <p>{{ case.name }}</p>
+                </div>
+                <div class="case-title case-title-white case-description">
+                    <p>Выигрыш до</p>
+                    <p class="case-size-win">{{ cases_sum_win|get_item:case }}₽</p>
+                </div>
+                <div class="case-title case-cost case-title-white-cost">
+                    <p>{{ case.cost }}₽</p>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'profile/profile_base.html' %}
+{% load static %}
+{% block title %}Уровни{% endblock %}
+{% block head %}
+<script type="text/javascript" src="{% static 'js/levels.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/profile_base.js' %}"></script>
+{% endblock %}
+{% block profileuserinfo %}
+<div class="col-md-8">
+    <section class="levels">
+        <h1 align="center" class="big-title">Уровни</h1>
+        <ol class="levels_progress-bar">
+            {% for level in levels %}
+            <li class="levels_progress-level {% if user_level == level.level %}is-active{% elif user_level > level.level %}is-complete{% endif %}" level='{{ level.level }}'>
+                <span>{{ level.experience }} XP</span>
+            </li>
+            {% endfor %}
+        </ol>
+    </section>
+    <section>
+        <h1 align="center">Описание</h1>
+        {% for level in levels %}
+        <ul class="levels_desc {% if user_level == level.level %}desc-active{% endif %}" level='{{level.level}}'>
+            <h2 align="center" class="levels_desc-title">Уровень {{ level.level }}</h2>
+            <li>Зачисление {{ level.reward }}₽ на баланс.</li>
+            {% if not level.additional_description == 'no_description' %}
+            <li>{{ level.additional_description }}</li>
+            {% endif %}
+        </ul>
+        {% endfor %}
+    </section>
+</div>
+{% endblock %}

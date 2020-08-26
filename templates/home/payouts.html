@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Последние выплаты{% endblock %}
+{% block content %}
+<div class="container mt-3">
+    <h2 align="center">Последние выплаты</h2>
+    <table class="statistic-table">
+        <thead>
+            <tr>
+                <th class="text-left">Игрок</th>
+                <th class="text-center">Сумма</th>
+                <th class="text-right">Дата</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pay in payment %}
+            <tr>
+                <td class="text-left">
+                    <a href="{% url 'user' pay.user.id %}">
+                        <div class="statistic-table__ava-wrapper">
+                            <img src="{{ pay.user.avatar.url }}" alt="avatar" height="80" width="80">
+                        </div>
+                        {{ pay.user.user.username }}
+                    </a>
+                </td>
+                <td class="text-center">{{ pay.sum_money }}₽</td>
+                <td class="text-right">{{ pay.date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

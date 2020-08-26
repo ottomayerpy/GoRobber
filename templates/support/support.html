@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Помощь и поддержка{% endblock %}
+{% block content %}
+<script>
+$(function() { // Событие нажатия блока на игровом поле
+    $('.simple-tabs').on('click', function() {
+        $('.swiper-container').find('div').removeClass('active');
+        $('[data-tabs="' + $(this).attr('data-tabs-id') + '"]').addClass('active');
+    });
+});
+</script>
+<div class="terms_content">
+    <div class="container help_block">
+        <h1>Помощь и поддержка</h1>
+        <div class="support-content">
+            <aside>
+                <h2>Пополнение и вывод средств</h2>
+                <div class="tabs_nav">
+                    <div class="help-nav_left">
+                        <div class="simple-tabs__pagination">
+                            <button class="simple-tabs" data-nav-tab="true" data-tabs-id="1">Вопрос 1?</button>
+                            <button class="simple-tabs" data-nav-tab="true" data-tabs-id="2">Вопрос 2?</button>
+                            <button class="simple-tabs" data-nav-tab="true" data-tabs-id="3">Вопрос 3?</button>
+                            <button class="simple-tabs" data-nav-tab="true" data-tabs-id="4">Вопрос 4?</button>
+                        </div>
+                    </div>
+                    <div class="help-nav_view">
+                        <div class="swiper-container">
+                            <div data-tabs="1" class="active">
+                                <strong>Вопрос 1?</strong>
+                                Ответ 1.
+                            </div>
+                            <div data-tabs="2" class="">
+                                <strong>Вопрос 2?</strong>
+                                Ответ 2.
+                            </div>
+                            <div data-tabs="3">
+                                <strong>Вопрос 3?</strong>
+                                Ответ 3.
+                            </div>
+                            <div data-tabs="4" class="">
+                                <strong>Вопрос 4?</strong>
+                                Ответ 4.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>
+{% endblock %}

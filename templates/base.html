@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap-grid.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/bootstrap-reboot.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link href="{% static 'img/favicon.ico' %}" rel="shortcut icon" type="image/x-icon">
+    <script src="{% static 'js/other/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/other/slideout.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/base.js' %}"></script>
+    {% block head %}{% endblock %}
+</head>
+
+<body data-user-id='{{ request.user.id }}' data-card-id='{{ case.id }}' aria-live="polite" aria-atomic="true">
+    <div id="toast-container"></div>
+    <nav id="menu" class="menu">
+        <section class="menu-section">
+            <ul class="menu-section-list">
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'profile' %}">
+                    <div class="user-block_avatar-menu">
+                        <img src="{{user_avatar}}" class="user-block_avatar-img-menu" height="80" width="80">
+                    </div>
+                </a>
+                {% else %}
+                <a href="{% url 'home_url' %}">
+                    <div class="user-block_avatar-menu">
+                        <img src="{% static 'img/favicon.ico' %}" class="user-block_avatar-img-menu_user_not_authenticated" height="80" width="80">
+                    </div>
+                </a>
+                {% endif %}
+                <a class="button" href="{% url 'home_url' %}">ГЛАВНАЯ</a>
+                <a class="button" href="{% url 'rating_url' %}">РЕЙТИНГ</a>
+                <a class="button" href="{% url 'payouts_url' %}">ВЫПЛАТЫ</a>
+                <a class="button" href="{% url 'support_url' %}">ПОМОЩЬ</a>
+                {% if request.user.is_staff %}
+                <a class="button" href="/admin">АДМИНКА</a>
+                {% endif %}
+                {% if request.user.is_authenticated %}
+                <a class="button" href="" data-toggle="modal" data-target="#Pay">ПОПОЛНИТЬ</a>
+                <a class="button" href="" data-toggle="modal" data-target="#PayOut">ВЫВЕСТИ</a>
+                {% endif %}
+            </ul>
+        </section>
+    </nav>
+    <div id="page-preload" class="preload">
+        <div class="windows8">
+            <div class="wBall" id="wBall_1">
+                <div class="wInnerBall"></div>
+            </div>
+            <div class="wBall" id="wBall_2">
+                <div class="wInnerBall"></div>
+            </div>
+            <div class="wBall" id="wBall_3">
+                <div class="wInnerBall"></div>
+            </div>
+            <div class="wBall" id="wBall_4">
+                <div class="wInnerBall"></div>
+            </div>
+            <div class="wBall" id="wBall_5">
+                <div class="wInnerBall"></div>
+            </div>
+        </div>
+    </div>
+    <main id="panel" class="panel">
+        <button class='btn-hamburger burger_right js-slideout-toggle'>
+            <img src="/static/img/system/menu.png" alt="Меню" height="50" width="50">
+        </button>
+        <header>
+            <div class="logotype">
+                <a href="{% url 'home_url' %}">
+                    <svg version="1.1" id="layer-1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 500 500" enable-background="new 0 0 500 500" xml:space="preserve">
+                        <defs>
+                            <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="50%" stop-color="#198f93"></stop>
+                                <stop offset="100%" stop-color="#198f93" stop-opacity="0"></stop>
+                            </linearGradient>
+                            <linearGradient id="grad2" x1="100%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="50%" stop-color="#37c9be"></stop>
+                                <stop offset="100%" stop-color="#37c9be" stop-opacity="0"></stop>
+                            </linearGradient>
+                            <linearGradient id="grad3" x1="100%" y1="100%" x2="0%" y2="0%">
+                                <stop offset="50%" stop-color="#73f2dd"></stop>
+                                <stop offset="100%" stop-color="#73f2dd" stop-opacity="0"></stop>
+                            </linearGradient>
+                        </defs>
+                        <path class="shape-1" fill="url(#grad1)" d="M237.773,56.673c-98.48,0-178.314,79.834-178.314,178.315c0,98.48,79.834,178.314,178.314,178.314c98.481,0,178.314-79.834,178.314-178.314C416.088,136.507,336.255,56.673,237.773,56.673z M237.774,384.817c-82.749,0-149.829-67.079-149.829-149.829c0-82.75,67.081-149.831,149.829-149.831c82.751,0,149.828,67.082,149.828,149.831C387.603,317.738,320.525,384.817,237.774,384.817z"></path>
+                        <path class="shape-2" fill="url(#grad2)" d="M247.303,76.867c-98.481,0-178.315,79.834-178.315,178.317c0,98.479,79.834,178.314,178.315,178.314c98.481,0,178.314-79.836,178.314-178.314C425.617,156.701,345.784,76.867,247.303,76.867zM247.304,405.013c-82.749,0-149.83-67.08-149.83-149.829c0-82.751,67.081-149.833,149.83-149.833s149.828,67.081,149.828,149.833C397.132,337.933,330.053,405.013,247.304,405.013z"></path>
+                        <path class="shape-3" fill="url(#grad3)" d="M262.227,56.672c-98.48,0-178.314,79.834-178.314,178.315c0,98.48,79.834,178.315,178.314,178.315c98.481,0,178.314-79.835,178.314-178.315C440.541,136.506,360.708,56.672,262.227,56.672zM262.227,384.817c-82.748,0-149.829-67.079-149.829-149.83c0-82.75,67.081-149.831,149.829-149.831c82.752,0,149.829,67.082,149.829,149.831C412.056,317.738,344.979,384.817,262.227,384.817z"></path>
+                        <path class="shape-4" fill="url(#grad1)" d="M264.227,438.497c98.48,0,178.314-79.834,178.314-178.315c0-98.48-79.834-178.314-178.314-178.314c-98.481,0-178.314,79.834-178.314,178.314C85.912,358.663,165.745,438.497,264.227,438.497z M264.226,110.353c82.749,0,149.829,67.079,149.829,149.829s-67.08,149.831-149.829,149.831c-82.751,0-149.828-67.082-149.828-149.831C114.397,177.432,181.475,110.353,264.226,110.353z"></path>
+                        <path class="shape-5" fill="url(#grad2)" d="M252.697,421.303c98.48,0,178.314-79.834,178.315-178.316c0-98.479-79.834-178.314-178.315-178.314S74.383,144.508,74.383,242.986C74.383,341.469,154.216,421.303,252.697,421.303zM252.696,93.157c82.749,0,149.83,67.08,149.83,149.829c0,82.752-67.081,149.832-149.83,149.832s-149.828-67.081-149.828-149.832C102.868,160.237,169.947,93.157,252.696,93.157z"></path>
+                        <path class="shape-6" fill="url(#grad3)" d="M232.773,438.498c98.48,0,178.314-79.834,178.314-178.315c0-98.48-79.834-178.315-178.314-178.315c-98.481,0-178.314,79.835-178.314,178.315C54.459,358.664,134.292,438.498,232.773,438.498zM232.773,110.353c82.748,0,149.829,67.079,149.829,149.83c-0.001,82.749-67.081,149.831-149.829,149.831c-82.752,0-149.829-67.082-149.829-149.831C82.944,177.432,150.021,110.353,232.773,110.353z"></path>
+                    </svg>
+                </a>
+                <a href="{% url 'home_url' %}">
+                    <p><span>Go</span>Robber</p>
+                </a>
+            </div>
+            <a class="button hides" href="{% url 'home_url' %}">ГЛАВНАЯ</a>
+            <a class="button hides" href="{% url 'rating_url' %}">РЕЙТИНГ</a>
+            <a class="button hides" href="{% url 'payouts_url' %}">ВЫПЛАТЫ</a>
+            <a class="button hides" href="{% url 'support_url' %}">ПОМОЩЬ</a>
+            {% if request.user.is_staff %}
+            <a class="button hides" href="/admin">АДМИНКА</a>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+            <div class="row home-profile">
+                <p class="home-profile_balance">БАЛАНС: <span>{{balance}}</span>₽</p>
+                <div class="home-profile_buttons-one hides">
+                    <button class="icon-btn add-btn" data-toggle="modal" data-target="#Pay">
+                        <div class="add-icon"></div>
+                        <div class="btn-txt">Пополнить</div>
+                    </button>
+                    <button class="icon-btn add-btn" data-toggle="modal" data-target="#PayOut">
+                        <div class="btn-txt">Вывести</div>
+                    </button>
+                </div>
+                <div class="user-block hides">
+                    <a href="{% url 'profile' %}">
+                        <div class="user-block_avatar">
+                            <img src="{{user_avatar}}" class="user-block_avatar-img" height="80" width="80">
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% else %}
+            <a href="{% url 'auth_login' %}" class="button ButtonReg">АВТОРИЗАЦИЯ</a>
+            {% endif %}
+        </header>
+        <div class="container live_tape_container">
+            <div class="live-win__stat-wrapper">
+                <div class="live-win__stat-line">
+                    <div class="live-win__stat-block live-win__stat-block_users">
+                        <div class="live-win__stat-key">Пользователей:&nbsp;</div>
+                        <div id="user-counter" class="live-win__stat-value">{{ user_count }}</div>
+                    </div>
+                    <div class="live-win__stat-block live-win__stat-block_online">
+                        <div class="live-win__stat-key">Онлайн:&nbsp;</div>
+                        <div id="online-counter" class="live-win__stat-value">{{ online }}</div>
+                    </div>
+                    <div class="live-win__stat-block live-win__stat-block_games">
+                        <div class="live-win__stat-key">Игр:&nbsp;</div>
+                        <div id="case-counter" class="live-win__stat-value">{{ games }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="live_tape_header">
+                <div class="live_tape_header-text">Последние выигрыши</div>
+            </div>
+            <div class="live_tape_line">
+                <div class="live_tape_line-coins">
+                    <div class="coin-block-min coin-block-min__new_min"></div>
+                    <div class="coin-block-min coin-block-min__new"></div>
+                    {% for item in live_tape %}
+                    <div class="coin-block-min coin-block-min_none ImgField">
+                        <a href="/profile/id{{ item.user_id }}/">
+                            <div class="coin-block-min__coin-glow"></div>
+                            <img src="/static/img/prizes/{{ item.sum_win }}.png" class="coin-block-min__coin-img image first" height="90" width="90">
+                            <img src="{{item.user.avatar.url}}" class="coin-block-min__coin-img image second" height="90" width="90">
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <footer class="footer_bottom">
+            <div class="home_footer">
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-sm-4">
+                            <h5 align="center">Навигация</h5>
+                            <ul>
+                                <li><a href="{% url 'home_url' %}">Главная</a></li>
+                                <li><a href="{% url 'rating_url' %}">Рейтинг</a></li>
+                                <li><a href="{% url 'payouts_url' %}">Выплаты</a></li>
+                                <li><a href="{% url 'support_url' %}">Помощь</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4">
+                            <h5 align="center">Связь с нами</h5>
+                            <ul>
+                                <li><a href="{% url 'send_message_url' %}">Поддержка на сайте</a></li>
+                                <li><a href="">Ссылка</a></li>
+                                <li><a href="">Ссылка</a></li>
+                                <li><a href="">Ссылка</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bar">
+                <div class="vesapie-nsaegum d-flex justify-content-center">
+                    <img class="disclamer" src="{% static 'svg/18.svg' %}" height="25" width="25">
+                    <ul class="arketingru-ncreased">
+                        <li>Авторизуясь на сайте вы принимаете</li>
+                        <li><a href="{% url 'terms_url' %}">Политика конфиденциальности</a></li>
+                        <li> и</li>
+                        <li><a href="{% url 'privacy_url' %}">Пользовательское соглашение</a></li>
+                        <li>© Все права защищены</li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+        <div id="Pay" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Пополнение баланса</h4>
+                        <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="field-block">
+                            <label>Введите сумму:</label>
+                        </div>
+                        <div class="field-block center_button_send_message">
+                            <input class="field" type="number" name="inputPay" value="150">
+                        </div>
+                        <div class="payout_request">
+                            <div class="field-block center_button_send_message">
+                                <input class="field" type="text" name="inputPayOut-requesits">
+                            </div>
+                        </div>
+                        <div class="center_button_send_message">
+                            <button type="button" class="button ButtonReg" name="buttonPay">Пополнить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="PayOut" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Вывод</h4>
+                        <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="contactForm">
+                            <div class="field-block">
+                                <label>Введите сумму:</label>
+                            </div>
+                            <div class="field-block center_button_send_message">
+                                <input class="field" type="number" name="inputPayOut" value="150">
+                            </div>
+                            <div class="payout_request">
+                                <div class="field-block center_button_send_message">
+                                    <input class="field" type="text" name="inputPayOut-requesits">
+                                </div>
+                            </div>
+                            <div class="center_button_send_message">
+                                <button type="button" class="button ButtonReg" name="buttonPayOut">Вывести</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+    document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
+    </script>
+</body>
+
+</html>

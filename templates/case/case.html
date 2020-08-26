@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Кейс {{case.name}}{% endblock %}
+{% block head %}
+<script type="text/javascript" src="{% static 'js/case.js' %}"></script>
+{% endblock %}
+{% block content %}
+<h2 align="center" class="js-case-name mt-3 big-title">{{case.name}}</h2>
+<div class="game-container" media-path="{{ media_root }}">
+    <div class="game-block block-start">
+        <div class="row h-100">
+            <div class="col-sm-12 my-auto">
+                {% if request.user.id %}
+                {% if case.level <= user_level %}
+                <button type="button" class="btn btn-warning ButtonReg game-button block-start-button">Начать игру за {{case.cost}}₽</button>
+                    {% else %}
+                    <button type="button" class="btn btn-warning ButtonReg game-button">Для игры необходим {{case.level}} уровень</button>
+                    {% endif %}
+                    {% else %}
+                    <button type="button" class="btn btn-warning ButtonReg game-button"
+                    data-toggle="modal" data-target="#RegModal">Начать игру за {{case.cost}}₽</button>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="game-block block-pause">
+        <div class="row h-100">
+            <div class="col-sm-12 my-auto">
+                <button type="button"
+                class="btn btn-warning ButtonReg game-button block-continue-button">Продолжить</button>
+                <button type="button"
+                class="btn btn-warning ButtonReg game-button js-game-pick-up-money-button">Забрать <span class="pick_up_money_sum">0</span>₽</button>
+            </div>
+        </div>
+    </div>
+    <div class="game-block block-restart">
+        <div class="row h-100">
+            <div class="col-sm-12 my-auto">
+                <button type="button" class="btn btn-warning ButtonReg game-button block-restart-button">Начать заново</button>
+            </div>
+        </div>
+    </div>
+    <div class="row game-cell-row">
+        <div class="game-cell" data-cell="1">
+            <img src="{{ case.image_cell.url }}">
+        </div>
+        <div class="game-cell" data-cell="2">
+            <img src="{{ case.image_cell.url }}">
+        </div>
+        <div class="game-cell" data-cell="3">
+            <img src="{{ case.image_cell.url }}">
+        </div>
+        <div class="game-cell" data-cell="4">
+            <img src="{{ case.image_cell.url }}">
+        </div>
+    </div>
+    <div class="row game-cell-row">
+        <div class="game-cell" data-cell="5">
+            <img src="{{ case.image_cell.url }}">
+        </div>
+        <div class="game-cell" data-cell="6">
+            <img src="{{ case.image_cell.url }}">
+        </div>
+        <div class="game-cell" data-cell="7">
+            <img src="{{ case.image_cell.url }}">
+        </div>
+        <div class="game-cell" data-cell="8">
+            <img src="{{ case.image_cell.url }}">
+        </div>
+    </div>
+    <div class="row game-cell-row">
+        <div class="game-cell" data-cell="9">
+            <img src="{{ case.image_cell.url }}">
+        </div>
+        <div class="game-cell" data-cell="10">
+            <img src="{{ case.image_cell.url }}">
+        </div>
+        <div class="game-cell" data-cell="11">
+            <img src="{{ case.image_cell.url }}">
+        </div>
+        <div class="game-cell" data-cell="12">
+            <img src="{{ case.image_cell.url }}">
+        </div>
+    </div>
+</div>
+<h2 align="center" class="game-rules">Правила игры</h2>
+<p class="game-rules-text d-flex justify-content-center">{{ case.description }}</p>
+<h2 align="center" class="game-title-rules">Что может выпасть</h2>
+<div class="container game-container">
+    <div class="row game-cell-row">
+        {% for prize in case_prize %}
+        <div class="game-cell-prize">
+            <img src="/static/img/prizes/{{ prize }}.png">
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

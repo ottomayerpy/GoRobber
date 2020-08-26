@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Профиль{% endblock %}
+{% block head %}
+<script type="text/javascript" src="{% static 'js/profile_base.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="row prof d-flex justify-content-center">
+            <div class="home-profile_avatar">
+                <img src="{{ user.avatar.url }}" class="home-profile_avatar-img-big" alt="Avatar" height="200" width="200">
+            </div>
+        </div>
+        <div class="row prof d-flex justify-content-center">
+            <h3>{{ user.user.username }}</h3>
+        </div>
+        <div class="row prof d-flex justify-content-center">
+            <h5>Игр: {{ user.open_cases }}</h5>
+        </div>
+        <div class="row prof d-flex justify-content-center">
+            <h5>Потрачено: {{ user.spent_money }}₽</h5>
+        </div>
+        <div class="row prof d-flex justify-content-center">
+            <h5>Уровень: {{ user.level }}</h5>
+        </div>
+        <div class="row prof d-flex justify-content-center">
+            <h5>Опыт: {{ user.experience }} XP</h5>
+        </div>
+        <div class="row prof d-flex justify-content-center">
+            <a class="js-button_prof d-flex justify-content-center button ButtonReg" href="{% url 'profile' %}">СОБЫТИЯ</a>
+            <a class="js-button_levels d-flex justify-content-center button ButtonReg" href="{% url 'levels' %}">УРОВНИ</a>
+            <a class="js-button_finance d-flex justify-content-center button ButtonReg" href="{% url 'finance' %}">ФИНАНСЫ</a>
+            <a class="button ButtonReg d-flex justify-content-center" id="ButtonExit" data-toggle="modal" data-target="#ExitModal">ВЫХОД</a>
+        </div>
+    </div>
+    {% block profileuserinfo %}
+    <div class="col-md-8 mb-5">
+        <div class="terms_content">
+            <h2 align="center" class="big-title">События</h2>
+            <table class="statistic-table">
+                <thead>
+                    <tr>
+                        <th class="text-left">Событие</th>
+                        <th class="text-center">Дата</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in user_event %}
+                    {% if event and event.user_id == request.user.id %}
+                    <tr>
+                        <td class="text-left">{{ event.description }}</td>
+                        <td class="text-center">{{ event.date }}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endblock %}
+</div>
+<div id="ExitModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Выход из аккаунта</h4>
+                <button class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                {% load i18n %}
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    {% endif %}
+                    <button type="submit" class="btn btn-primary">{% trans 'Выйти' %}</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-light">Отмена</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

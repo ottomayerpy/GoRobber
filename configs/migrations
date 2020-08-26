@@ -1,0 +1,43 @@
+Это черновик с миграциями (они применяются в service/migrations/0001_initial.py в конце файла)
+
+migrations.RunSQL("""
+    INSERT INTO
+        "service_statistic" ("id", "name", "value")
+    VALUES
+        ('1', 'games', '0');
+"""),
+migrations.RunSQL("""
+    INSERT INTO
+        "service_prizeweight" ("id", "name", "weights")
+    VALUES
+        ('1', 'Admin', '[10, 5, 5, 3, 3, 2, 2, 1, 1, 1, 1, 1]'),
+        ('2', 'User', '[1, 1, 1, 1, 1, 2, 2, 3, 3, 5, 5, 10]');
+"""),
+migrations.RunSQL("""
+    INSERT INTO
+        "service_levellist" ("id", "level", "experience", "reward", "additional_description")
+    VALUES
+        ('1', '1', '0', '1000', 'no_description'),
+        ('2', '2', '500', '100', 'no_description'),
+        ('3', '3', '1000', '200', 'Доступ к кейсу "Взрыв"'),
+        ('4', '4', '1500', '300', 'no_description'),
+        ('5', '5', '2000', '400', 'Доступ к кейсу "Ядерный удар"'),
+        ('6', '6', '2500', '500', 'no_description'),
+        ('7', '7', '3000', '600', 'no_description'),
+        ('8', '8', '3500', '700', 'no_description'),
+        ('9', '9', '4000', '800', 'Доступ к кейсу "C4"'),
+        ('10', '10', '4500', '900', 'no_description'),
+        ('11', '11', '5000', '1000', 'no_description'),
+        ('12', '12', '8000', '5000', 'no_description');
+"""),
+migrations.RunSQL("""
+    INSERT INTO
+        "case_case" ("id", "name", "image", "image_cell", "description", "cost", "level", "experience", "prizes")
+    VALUES
+        ('1', 'Мина',         'cases/1.png', 'cells/1.png', 'Кейс "Мина"',         '100',  '1', '100', '[5, 5, 10, 10, 20, 50, 50, 50, 100, 100, 500, 0]'),
+        ('2', 'Бомба',        'cases/2.png', 'cells/2.png', 'Кейс "Бомба"',        '200',  '1', '200', '[10, 50, 50, 100, 200, 300, 400, 500, 800, 0, 0, 0]'),
+        ('3', 'Динамит',      'cases/3.png', 'cells/3.png', 'Кейс "Динамит"',      '350',  '1', '300', '[70, 250, 300, 700, 1000, 1000, 2000, 3000, 0, 0, 0, 0]'),
+        ('4', 'Взрыв',        'cases/4.png', 'cells/4.png', 'Кейс "Взрыв"',        '500',  '3', '400', '[150, 250, 400, 800, 1000, 5000, 7000, 0, 0, 0, 0, 0]'),
+        ('5', 'Ядерный удар', 'cases/5.png', 'cells/5.png', 'Кейс "Ядерный удар"', '1000', '5', '500', '[1000, 2000, 3000, 5000, 10000, 0, 0, 0, 0, 0, 0, 0]'),
+        ('6', 'C4',           'cases/6.png', 'cells/6.png', 'Кейс "C4"',           '100',  '9', '700', '[30000, 50000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]');
+"""),

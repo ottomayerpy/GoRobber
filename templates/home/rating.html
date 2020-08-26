@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Рейтинг{% endblock %}
+{% block content %}
+<div class="container mt-3">
+    <h2 align="center">Рейтинг</h2>
+    <table class="statistic-table">
+        <thead>
+            <tr>
+                <th class="text-left">#</th>
+                <th class="text-left">Игрок</th>
+                <th class="text-right">
+                    <img src="{% static 'img/system/game.png' %}" alt="game">
+                </th>
+                <th class="text-right">
+                    <img src="{% static 'img/system/money.png' %}" alt="money">
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td class="text-left">{{ forloop.counter }}</td>
+                <td class="text-left">
+                    <a href="{% url 'user' user.id %}">
+                        <div class="statistic-table__ava-wrapper">
+                            <img src="{{ user.avatar.url }}" alt="avatar" height="80" width="80">
+                        </div>
+                        {{user.user.username}}
+                    </a>
+                </td>
+                <td class="text-right">
+                    <span>{{ user.open_cases }}</span>
+                </td>
+                <td class="text-right">
+                    <span>{{ user.spent_money }}₽</span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

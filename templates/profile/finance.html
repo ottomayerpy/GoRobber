@@ -1,0 +1,31 @@
+{% extends 'profile/profile_base.html' %}
+{% block title %}Финансы{% endblock %}
+{% block profileuserinfo %}
+<div class="col-md-8">
+    <div class="container mt-3">
+        <h2 align="center" class="big-title">Финансы</h2>
+        <table class="statistic-table">
+            <thead>
+                <tr>
+                    <th class="text-left">Операция</th>
+                    <th class="text-center">Сумма</th>
+                    <th class="text-center">Статус</th>
+                    <th class="text-center">Дата</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pay in payment %}
+                <tr>
+                    <td class="text-left">{{pay.name}}</td>
+                    <td class="text-center">{{pay.sum_money}}₽</td>
+                    <td class="text-center">
+                        <div class="finance-status">{{pay.status}}</div>
+                    </td>
+                    <td class="text-center">{{pay.date}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
