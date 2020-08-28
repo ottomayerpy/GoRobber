@@ -20,10 +20,10 @@ pip install -r requirements.txt
 Перейдите в директорию configs, создайте копию файла config-example.py с названием config.py и заполните
 в нем нужные параметры (переменные из config.py импортируются в settings.py).
 ```
-cd accounts/configs
+cd configs
 cp config-example.py config.py
 ```
-Перейдите обратно в директорию accounts и проведите миграции.
+Перейдите обратно в директорию GoRobber и проведите миграции.
 ```
 cd ..
 python3 manage.py migrate
