@@ -17,13 +17,13 @@ source env/bin/activate
 ```
 pip install -r requirements.txt
 ```
-Перейдите в папку configs, создайте копию файла config-example.py с названием config.py и заполните
+Перейдите в директорию configs, создайте копию файла config-example.py с названием config.py и заполните
 в нем нужные параметры (переменные из config.py импортируются в settings.py).
 ```
-cd configs
+cd accounts/configs
 cp config-example.py config.py
 ```
-Перейдите обратно в директорию GoRobber и проведите миграции.
+Перейдите обратно в директорию accounts и проведите миграции.
 ```
 cd ..
 python3 manage.py migrate
