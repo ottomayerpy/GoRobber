@@ -5,7 +5,7 @@
 
 Клонируйте данный репозиторий и перейдите в каталог GoRobber.
 ```
-git clone https://github.com/nikitakoltman/GoRobber
+git clone https://github.com/ottomayerpy/GoRobber
 cd GoRobber
 ```
 Создайте и активируйте виртуальное окружение python.
